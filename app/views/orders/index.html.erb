@@ -1,0 +1,24 @@
+<% if @order.order_items.empty? %>
+  <div class="alert alert-warning">
+    Your cart is empty.
+  </div>
+<% end %>
+<h1 class="mb-4">Your Cart</h1>
+
+<% total = 0 %>
+
+<% @order.order_items.each do |item| %>
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h3><%= item.product.name %></h3>
+      <p><strong>Quantity:</strong> <%= item.quantity %></p>
+      <p><strong>Price:</strong> $<%= item.price_at_time %></p>
+    </div>
+  </div>
+
+  <% total += item.quantity * item.price_at_time %>
+<% end %>
+
+<div class="alert alert-info">
+  <h2 class="mb-0">Total: $<%= total %></h2>
+</div>

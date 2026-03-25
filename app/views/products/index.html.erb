@@ -1,0 +1,23 @@
+<h1 class="mb-4">Products</h1>
+
+<%= form_with url: products_path, method: :get, local: true, class: "mb-4 d-flex" do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search products...", class: "form-control me-2" %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title"><%= product.name %></h3>
+          <p class="card-text"><%= product.description %></p>
+          <p><strong>Price:</strong> $<%= product.price %></p>
+          <%= button_to "Add to Cart", add_to_cart_path(product), method: :post, class: "btn btn-success mb-2" %>
+          <br>
+          <%= link_to "View", product_path(product), class: "btn btn-outline-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
