@@ -1,9 +1,28 @@
 <h1 class="mb-4">Products</h1>
 
-<%= form_with url: products_path, method: :get, local: true, class: "mb-4 d-flex" do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search products...", class: "form-control me-2" %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
+<%= form_with url: products_path, method: :get, local: true, class: "row g-2 mb-4" do %>
+  <div class="col-md-5">
+    <%= text_field_tag :search, params[:search], placeholder: "Search products...", class: "form-control" %>
+  </div>
+
+  <div class="col-md-4">
+    <%= select_tag :category_id,
+      options_from_collection_for_select(@categories, :id, :name, params[:category_id]),
+      include_blank: "All Categories",
+      class: "form-select" %>
+  </div>
+
+  <div class="col-md-3">
+    <%= submit_tag "Filter", class: "btn btn-primary w-100" %>
+  </div>
 <% end %>
+
+<div class="mb-4">
+  <strong>Browse by Category:</strong>
+  <% @categories.each do |category| %>
+    <%= link_to category.name, category_path(category), class: "btn btn-outline-secondary btn-sm me-2 mt-2" %>
+  <% end %>
+</div>
 
 <div class="row">
   <% @products.each do |product| %>
